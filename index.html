@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover India - Tourism Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-header">
+            <div class="flag-stripe saffron"></div>
+            <div class="flag-stripe white">
+                <div class="ashoka-chakra"></div>
+            </div>
+            <div class="flag-stripe green"></div>
+        </div>
+        <div class="login-container">
+            <h1 class="main-title">TURAAHI - Discover India</h1>
+            <p class="subtitle">Your Gateway to Incredible India</p>
+            
+            <div class="login-cards">
+                <!-- Tourist Login Card -->
+                <div class="login-card">
+                    <div class="card-icon tourist-icon">🧳</div>
+                    <h2>Tourist</h2>
+                    <p>Explore amazing tours across India</p>
+                    <form class="login-form" onsubmit="handleLogin(event, 'tourist')">
+                        <input type="email" placeholder="Email" required class="form-input">
+                        <input type="password" placeholder="Password" required class="form-input">
+                        <button type="submit" class="btn btn-primary">Login as Tourist</button>
+                    </form>
+                </div>
+
+                <!-- Guide Login Card -->
+                <div class="login-card">
+                    <div class="card-icon guide-icon">🗺️</div>
+                    <h2>Guide</h2>
+                    <p>Share your expertise and create tours</p>
+                    <form class="login-form" onsubmit="handleLogin(event, 'guide')">
+                        <input type="email" placeholder="Email" required class="form-input">
+                        <input type="password" placeholder="Password" required class="form-input">
+                        <button type="submit" class="btn btn-primary">Login as Guide</button>
+                    </form>
+                </div>
+
+                <!-- Admin Login Card -->
+                <div class="login-card">
+                    <div class="card-icon admin-icon">⚙️</div>
+                    <h2>Admin</h2>
+                    <p>Manage profiles, tours and statistics</p>
+                    <form class="login-form" onsubmit="handleLogin(event, 'admin')">
+                        <input type="email" placeholder="Email" required class="form-input">
+                        <input type="password" placeholder="Password" required class="form-input">
+                        <button type="submit" class="btn btn-primary">Login as Admin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tourist Dashboard -->
+    <div id="touristDashboard" class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">Discover India</div>
+            <div class="nav-user">
+                <span>Welcome, Tourist!</span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="hero-section">
+                <h1>Explore Incredible India</h1>
+                <div class="search-container">
+                    <input type="text" id="tourSearch" placeholder="Search destinations..." class="search-input" oninput="filterTours()">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+
+            <section class="tours-section">
+                <h2>Trending Tours</h2>
+                <div id="toursGrid" class="tours-grid"></div>
+            </section>
+
+            <section class="interested-section">
+                <h2>Your Interested Tours</h2>
+                <div id="interestedTours" class="tours-grid">
+                    <p class="empty-message">No tours selected yet. Browse and show interest in tours above!</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Guide Dashboard - Profile Form -->
+    <div id="guideProfileForm" class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">Discover India - Guide Portal</div>
+            <div class="nav-user">
+                <span>Welcome, Guide!</span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="form-container">
+                <h1>Create Your Guide Profile</h1>
+                <p class="form-subtitle">Complete your profile to start creating tours</p>
+                
+                <form id="guideProfileFormElement" onsubmit="submitGuideProfile(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" required class="form-control" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" name="phone" required class="form-control" placeholder="+91 XXXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Experience (years) *</label>
+                            <input type="number" name="experience" required class="form-control" placeholder="Years of experience">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location/City *</label>
+                            <input type="text" name="location" required class="form-control" placeholder="Your city">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Languages Spoken *</label>
+                        <select name="languages" multiple class="form-control" required>
+                            <option value="Hindi">Hindi</option>
+                            <option value="English">English</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Malayalam">Malayalam</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Punjabi">Punjabi</option>
+                            <option value="Marathi">Marathi</option>
+                        </select>
+                        <small>Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Specialization *</label>
+                        <select name="specialization" class="form-control" required>
+                            <option value="">Select specialization</option>
+                            <option value="Heritage Tours">Heritage Tours</option>
+                            <option value="Adventure Tours">Adventure Tours</option>
+                            <option value="Spiritual Tours">Spiritual Tours</option>
+                            <option value="Beach Tours">Beach Tours</option>
+                            <option value="Mountain Tours">Mountain Tours</option>
+                            <option value="Wildlife Tours">Wildlife Tours</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Bio/Description *</label>
+                        <textarea name="bio" required class="form-control" rows="4" placeholder="Tell us about yourself and your guiding experience..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Aadhar Card Upload *</label>
+                        <input type="file" name="aadhar" required class="form-control" accept=".pdf,.jpg,.png">
+                        <small>Upload a clear photo/scan of your Aadhar card</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Profile Photo</label>
+                        <input type="file" name="photo" class="form-control" accept=".jpg,.png">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Submit for Admin Approval</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Dashboard - Main -->
+    <div id="guideDashboard" class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">Discover India - Guide Portal</div>
+            <div class="nav-user">
+                <span id="guideName">Welcome, Guide!</span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content guide-layout">
+            <div class="guide-left">
+                <h2>Create New Tour</h2>
+                <form id="createTourForm" onsubmit="submitTour(event)">
+                    <div class="form-group">
+                        <label class="form-label">Tour Name *</label>
+                        <input type="text" name="tourName" required class="form-control" placeholder="e.g., Golden Triangle Tour">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Destination *</label>
+                        <input type="text" name="destination" required class="form-control" placeholder="e.g., Delhi-Agra-Jaipur">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Duration *</label>
+                            <input type="text" name="duration" required class="form-control" placeholder="e.g., 5 days">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price (₹) *</label>
+                            <input type="number" name="price" required class="form-control" placeholder="25000">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Group Size *</label>
+                            <input type="number" name="groupSize" required class="form-control" placeholder="Max participants">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Difficulty *</label>
+                            <select name="difficulty" required class="form-control">
+                                <option value="">Select difficulty</option>
+                                <option value="Easy">Easy</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Challenging">Challenging</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea name="description" required class="form-control" rows="3" placeholder="Describe the tour highlights..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Itinerary *</label>
+                        <textarea name="itinerary" required class="form-control" rows="4" placeholder="Day-by-day itinerary..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tour Image</label>
+                        <input type="file" name="tourImage" class="form-control" accept=".jpg,.png">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Submit for Verification</button>
+                </form>
+            </div>
+
+            <div class="guide-right">
+                <div class="widget calendar-widget">
+                    <h3>Calendar</h3>
+                    <div id="calendar"></div>
+                </div>
+
+                <div class="widget weather-widget">
+                    <h3>Weather</h3>
+                    <div id="weather"></div>
+                </div>
+
+                <div class="widget">
+                    <h3>Suggested Places</h3>
+                    <div id="suggestedPlaces" class="suggested-places"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <section class="requests-section">
+                <h2>Pending Tourist Requests</h2>
+                <div id="touristRequests" class="requests-grid">
+                    <p class="empty-message">No pending requests</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">Discover India - Admin Portal</div>
+            <div class="nav-user">
+                <span>Welcome, Admin!</span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <h1 style="color: blue;">Admin Dashboard</h1>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchAdminTab('statistics')">Statistics</button>
+                <button class="tab-btn" onclick="switchAdminTab('guides')">Guide Approvals</button>
+                <button class="tab-btn" onclick="switchAdminTab('tours')">Tour Approvals</button>
+            </div>
+
+            <!-- Statistics Tab -->
+            <div id="statisticsTab" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-value" id="activeUsers">0</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧳</div>
+                        <div class="stat-value" id="activeTourists">0</div>
+                        <div class="stat-label">Active Tourists</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-value" id="bookedTours">0</div>
+                        <div class="stat-label">Booked Tours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🗺️</div>
+                        <div class="stat-value" id="activeGuides">0</div>
+                        <div class="stat-label">Active Guides</div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div id="recentActivity" class="activity-list"></div>
+                </div>
+            </div>
+
+            <!-- Guide Approvals Tab -->
+            <div id="guidesTab" class="tab-content">
+                <h2>Pending Guide Approvals</h2>
+                <div id="guideApprovals" class="approval-list"></div>
+            </div>
+
+            <!-- Tour Approvals Tab -->
+            <div id="toursTab" class="tab-content">
+                <h2>Pending Tour Approvals</h2>
+                <div id="tourApprovals" class="approval-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Tour Details -->
+    <div id="tourModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
