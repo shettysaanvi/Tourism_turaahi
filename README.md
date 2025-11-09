@@ -1,2 +1,2 @@
 # Tourism_turaahi
-A webpage connecting local tour guides and tourists featuring KYC verification, guide profile approvals and booking tours in India
+Turaahi works by connecting travelers with local guides who know their city best. Travelers can enter the area they wish to explore and view profiles of available locals, including families, students, or residents. Each profile displays details such as age, languages spoken, area of expertise, and the fee charged for the tour. Once a traveler selects a guide, they can chat within the app, finalize the plan, and make secure payments. The guide then takes the traveler on a personalized tour, offering authentic local experiences and cultural insights that typical tourist spots often miss.
